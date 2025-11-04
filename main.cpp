@@ -103,23 +103,24 @@ int buildEncodingTree(int nextFree) {
         heap.push(i, weightArr);
     }
     while (heap.size > 1) { //Generated while condition
+        int parent = nextFree;
         int node1 = heap.pop(weightArr); //Created the small nodes
         int node2 = heap.pop(weightArr);
         weightArr[nextFree] = weightArr[node1] + weightArr[node2]; //Summed together
         leftArr[nextFree] = node1; //Made node1 into leftArr
         rightArr[nextFree] = node2; //Made node2 into rightArr
-
-        heap.push(nextFree, weightArr);
         nextFree++;
+        heap.push(parent, weightArr);
+
     }
 
-    return heap.pop(weightArr);
+    return heap.data[0];
 
 
 }
 
 // Step 4: Use an STL stack to generate codes
-void generateCodes(int root, string codes[]) {
+void generateCodes(int root, string codes[]) { //Generates the code in the code array
     // TODO:
     // Use stack<pair<int, string>> to simulate DFS traversal.
     // Left edge adds '0', right edge adds '1'.
@@ -136,15 +137,15 @@ void generateCodes(int root, string codes[]) {
 
         if (leftArr[currentNodeIndex] == -1 && rightArr[currentNodeIndex] == -1) {
             char c = charArr[currentNodeIndex];
-            codes[c-'a'] = currentCode;
+            codes[c - 'a'] = currentCode;
         }
         else {
             if (rightArr[currentNodeIndex] != -1) {
-                pair<int, string> rightChild(rightArr[currentNodeIndex], currentCode+ "1");
+                pair<int, string> rightChild(rightArr[currentNodeIndex], currentCode + "1"); //adds the
                 stack.push(rightChild);
             }
             if (leftArr[currentNodeIndex] != -1) {
-                pair<int, string> leftChild(leftArr[currentNodeIndex], currentCode+"0");
+                pair<int, string> leftChild(leftArr[currentNodeIndex], currentCode + "0");
                 stack.push(leftChild);
             }
         }
