@@ -139,11 +139,11 @@ void generateCodes(int root, string codes[]) {
             codes[c-'a'] = currentCode;
         }
         else {
-            if (rightArr[currentNodeIndex] == -1) {
+            if (rightArr[currentNodeIndex] != -1) {
                 pair<int, string> rightChild(rightArr[currentNodeIndex], currentCode+ "1");
                 stack.push(rightChild);
             }
-            if (leftArr[currentNodeIndex] == -1) {
+            if (leftArr[currentNodeIndex] != -1) {
                 pair<int, string> leftChild(leftArr[currentNodeIndex], currentCode+"0");
                 stack.push(leftChild);
             }
